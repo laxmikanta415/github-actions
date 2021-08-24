@@ -16,10 +16,9 @@ jobs:
         
       - name: Deploy to App Engine
         id: deploy
-        uses: google-github-actions/deploy-appengine@v0.4.0
+        uses: google-github-actions/deploy-appengine@main
         with:
-          deliverables: app.yml
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          credentials: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           export_default_credentials: true
           
