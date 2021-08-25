@@ -2,7 +2,8 @@
 
 runtime: nodejs
 env: flex
-entrypoint: npm run start
+entrypoint: 
+  shell: node index.js
 
 # This sample incurs costs to run on the App Engine flexible environment
 # The settings below are to reduce costs during testing and are not appropriate
