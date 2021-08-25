@@ -7,9 +7,10 @@ app.use('/', (req, res) =>{
   };
   try{
     response =   {
-      "script":'index',
+      "script":'server',
       "name": process.env.NAME,
-      "region": process.env.REGION
+      "region": process.env.REGION,
+      "var":process.env.MY_VAR
     }
     console.log(process.env)
   }catch(err){
