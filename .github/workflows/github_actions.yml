@@ -14,6 +14,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: npm install
+      
+      - name: Generate environment variables file
+        run: node generate-vars.js "${{ secrets.ENV_VARIABLES }}"
+        
       - name: Deploy to App Engine
         id: deploy
         uses: google-github-actions/deploy-appengine@main
