@@ -22,6 +22,12 @@ jobs:
       - name: Generate environment variables file
         run: node generate-vars.js "${{ secrets.ENV_VARIABLES }}"
         
+      - name: List all files
+        run: ls
+      
+      - name: List content of environment file generated
+        run: cat .env
+      
       - name: Deploy to App Engine
         id: deploy
         uses: google-github-actions/deploy-appengine@main
