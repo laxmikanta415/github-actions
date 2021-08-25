@@ -2,7 +2,7 @@
 
 runtime: nodejs
 env: flex
-entrypoint: node  server.js
+entrypoint: npm run server
 
 # This sample incurs costs to run on the App Engine flexible environment
 # The settings below are to reduce costs during testing and are not appropriate
