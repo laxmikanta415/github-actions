@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
 app.use('/', (req, res) =>{
   res.status(200).json({
   "name": process.env.NAME,
