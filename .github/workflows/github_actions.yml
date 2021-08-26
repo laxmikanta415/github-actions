@@ -17,7 +17,7 @@ jobs:
         with:
           credentials: ${{ secrets.GCP_CREDENTIALS }}
           secrets: |-
-            name:projects/1046983109341/secrets/name
+            name:projects/schedulebear/secrets/name
 
       - name: Checkout
         uses: actions/checkout@v2
