@@ -35,6 +35,9 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: node logenv.js 
+        env:
+          NAME: ${{ steps.secrets.outputs.NAME }}
+          REGION: ${{ steps.secrets.outputs.REGION }}
    
       # - name: Deploy to App Engine
       #   id: deploy
