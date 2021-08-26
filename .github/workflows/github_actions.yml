@@ -1,18 +1,17 @@
-# By using https://github.com/google-github-actions/deploy-appengine
-
-name: Deploy to Google App Engine
-on:
-  push:
-    branches: [ main ]
-  
-jobs:
-  deploy:
-    name: GAE Deploy
-    runs-on: ubuntu-latest
-    
-    steps:
-
-      - id: secrets
+# By using https://github.com/google-github-actions/deploy-appengine	
+	
+	name: Deploy to Google App Engine
+	on:
+	  push:
+	    branches: [ main ]
+	
+	jobs:
+	  deploy:
+	    name: GAE Deploy
+	    runs-on: ubuntu-latest
+	
+	    steps:
+        - id: secrets
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
           credentials: ${{ secrets.GCP_CREDENTIALS }}
@@ -20,32 +19,29 @@ jobs:
             NAME:projects/schedulebear/secrets/NAME/versions/latest
             REGION:projects/schedulebear/secrets/REGION/versions/latest
 
-      - name: Checkout
-        uses: actions/checkout@v2
-       
-
-      - name: Generate environment variables file
-        run: node logenv.js 
-        env:
-          NAME: ${{ steps.secrets.outputs.NAME }}
-          REGION: ${{ steps.secrets.outputs.REGION }}
-        
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Install dependencies
-        run: node logenv.js 
-        env:
-          NAME: ${{ steps.secrets.outputs.NAME }}
-          REGION: ${{ steps.secrets.outputs.REGION }}
-   
-      # - name: Deploy to App Engine
-      #   id: deploy
-      #   uses: google-github-actions/deploy-appengine@main
-        
-      #   with:
-      #     credentials: ${{ secrets.GCP_CREDENTIALS }}
-      #     project_id: ${{ secrets.GCP_PROJECT_ID }}
-          
-      # - name: Test
-      #   run: curl "${{ steps.deploy.outputs.url }}"
+	      - name: Checkout
+	        uses: actions/checkout@v2
+	
+	      - uses: actions/setup-node@v2
+          with:
+            node-version: '14'
+        - run: npm install
+	
+        - name: Generate environment variables file
+          run: node logenv.js 
+          env:
+            NAME: ${{ steps.secrets.outputs.NAME }}
+            REGION: ${{ steps.secrets.outputs.REGION }}
+	      
+        - name: Deploy to App Engine
+	        id: deploy
+          uses: google-github-actions/deploy-appengine@main
+          with:
+            credentials: ${{ secrets.GCP_CREDENTIALS }}
+            project_id: ${{ secrets.GCP_PROJECT_ID }}
+          env:
+            NAME: ${{ steps.secrets.outputs.NAME }}
+            REGION: ${{ steps.secrets.outputs.REGION }}
+	
+	      - name: Test
+        	run: curl "${{ steps.deploy.outputs.url }}"
