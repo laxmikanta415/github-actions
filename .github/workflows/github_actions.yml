@@ -21,11 +21,12 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
-        env:
-          name: ${{ steps.secrets.outputs.name }}
+       
 
       - name: Generate environment variables file
         run: node logenv.js 
+        env:
+          name: ${{ steps.secrets.outputs.name }}
         
       - uses: actions/setup-node@v2
         with:
