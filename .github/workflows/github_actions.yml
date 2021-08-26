@@ -19,6 +19,7 @@ jobs:
           secrets: |-
             NAME:projects/schedulebear/secrets/NAME/versions/latest
             REGION:projects/schedulebear/secrets/REGION/versions/latest
+            PROJECT_ID:projects/schedulebear/secrets/PROJECT_ID/versions/latest
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -46,7 +47,8 @@ jobs:
         with:
           deliverables: app.yaml dispatch.yaml
           credentials: ${{ secrets.GCP_CREDENTIALS }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: ${{ steps.secrets.outputs.PROJECT_ID }}
+
 
       - name: Test
         run: curl "${{ steps.deploy.outputs.url }}"
