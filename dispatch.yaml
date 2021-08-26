@@ -2,5 +2,8 @@ dispatch:
 - url: "schedulebear.uc.r.appspot.com/*"
   service: default
 
-- url: "dev-dot-schedulebear.uc.r.appspot.com/*"
+- url: "demo-dot-schedulebear.uc.r.appspot.com/*"
   service: dev
+ 
+- url: "dev-dot-schedulebear.uc.r.appspot.com/*"
+  service: demo

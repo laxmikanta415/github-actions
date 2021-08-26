@@ -7,7 +7,7 @@ app.use('/', (req, res) =>{
   };
   try{
     response =   {
-      "script":'index service',
+      "script":'index demo',
       "name": process.env.NAME,
       "region": process.env.REGION
     }
