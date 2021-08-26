@@ -29,20 +29,23 @@ jobs:
       - run: npm install
 
       - name: Generate environment variables file
-        run: node logenv.js 
+        run: node logenv.js "NAME,REGION"
         env:
           NAME: ${{ steps.secrets.outputs.NAME }}
           REGION: ${{ steps.secrets.outputs.REGION }}
       
+      - name: List all files
+        run: ls -al
+      
+      - name: List content of environment file generated
+        run: cat .env
+
       - name: Deploy to App Engine
         id: deploy
         uses: google-github-actions/deploy-appengine@main
         with:
           credentials: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-        env:
-          NAME: ${{ steps.secrets.outputs.NAME }}
-          REGION: ${{ steps.secrets.outputs.REGION }}
 
       - name: Test
         run: curl "${{ steps.deploy.outputs.url }}"
