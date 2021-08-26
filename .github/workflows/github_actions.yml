@@ -1,5 +1,5 @@
-# By using https://github.com/google-github-actions/deploy-appengine	
-	
+# By using https://github.com/google-github-actions/deploy-appengine
+
 name: Deploy to Google App Engine
 on:
   push:
