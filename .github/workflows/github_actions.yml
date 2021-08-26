@@ -15,6 +15,7 @@ jobs:
       - id: secrets
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
+          credentials: ${{ secrets.GCP_CREDENTIALS }}
           secrets: |-
             name:projects/1046983109341/secrets/name
 
