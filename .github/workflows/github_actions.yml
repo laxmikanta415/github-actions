@@ -40,20 +40,12 @@ jobs:
       - name: List content of environment file generated
         run: cat .env
 
-      # - name: Deploy to App Engine
-      #   id: deploy
-      #   uses: google-github-actions/deploy-appengine@main
-      #   with:
-      #     credentials: ${{ secrets.GCP_CREDENTIALS }}
-      #     project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Refresh routing
-        uses: etereo-io/deploy-gae-action@v2.0.4
+      - name: Deploy to App Engine
+        id: deploy
+        uses: google-github-actions/deploy-appengine@main
         with:
-          service_account: ${{ secrets.GCP_CREDENTIALS }}
+          credentials: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          gae_config_path: './app.yaml'
-          no_cache: false
-          dispatch_yaml: './dispatch.yaml'
+
       - name: Test
         run: curl "${{ steps.deploy.outputs.url }}"
