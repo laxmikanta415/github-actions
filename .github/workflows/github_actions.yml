@@ -17,7 +17,8 @@ jobs:
         with:
           credentials: ${{ secrets.GCP_CREDENTIALS }}
           secrets: |-
-            name:projects/schedulebear/secrets/name/versions/latest
+            NAME:projects/schedulebear/secrets/NAME/versions/latest
+            REGION:projects/schedulebear/secrets/REGION/versions/latest
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,7 +27,8 @@ jobs:
       - name: Generate environment variables file
         run: node logenv.js 
         env:
-          name: ${{ steps.secrets.outputs.name }}
+          NAME: ${{ steps.secrets.outputs.NAME }}
+          REGION: ${{ steps.secrets.outputs.REGION }}
         
       - uses: actions/setup-node@v2
         with:
@@ -42,5 +44,5 @@ jobs:
       #     credentials: ${{ secrets.GCP_CREDENTIALS }}
       #     project_id: ${{ secrets.GCP_PROJECT_ID }}
           
-      - name: Test
-        run: curl "${{ steps.deploy.outputs.url }}"
+      # - name: Test
+      #   run: curl "${{ steps.deploy.outputs.url }}"
