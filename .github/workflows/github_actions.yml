@@ -47,5 +47,8 @@ jobs:
           credentials: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+      # - name: Refresh routing
+      #   run: npm run update-routing
+
       - name: Test
         run: curl "${{ steps.deploy.outputs.url }}"
