@@ -31,11 +31,10 @@ jobs:
           REGION: ${{ steps.secrets.outputs.REGION }}
         
       - uses: actions/setup-node@v2
-        run: node logenv.js 
         with:
           node-version: '14'
       - name: Install dependencies
-        run: npm install
+        run: node logenv.js 
    
       # - name: Deploy to App Engine
       #   id: deploy
