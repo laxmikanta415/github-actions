@@ -11,29 +11,34 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+
+      - id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            name:projects/1046983109341/secrets/name
+
       - name: Checkout
         uses: actions/checkout@v2
+        env:
+          name: ${{ steps.secrets.outputs.name }}
+
+      - name: Generate environment variables file
+        run: node logenv.js 
         
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: npm install
-      
-      - name: Generate environment variables file
-        run: node generate-vars.js "${{ secrets.ENV_VARIABLES }}"
+      - name: Install dependencies
+        run: npm install
+   
+      # - name: Deploy to App Engine
+      #   id: deploy
+      #   uses: google-github-actions/deploy-appengine@main
         
-      - name: List all files
-        run: ls
-      
-      - name: List content of environment file generated
-        run: cat .env
-      
-      - name: Deploy to App Engine
-        id: deploy
-        uses: google-github-actions/deploy-appengine@main
-        with:
-          credentials: ${{ secrets.GCP_CREDENTIALS }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+      #   with:
+      #     credentials: ${{ secrets.GCP_CREDENTIALS }}
+      #     project_id: ${{ secrets.GCP_PROJECT_ID }}
           
       - name: Test
         run: curl "${{ steps.deploy.outputs.url }}"
