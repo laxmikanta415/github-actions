@@ -35,15 +35,16 @@ jobs:
           NAME: ${{ steps.secrets.outputs.NAME }}
           REGION: ${{ steps.secrets.outputs.REGION }}
       
-      - name: List content 
-        run: ls -al
-      - name: List content of environment file generated
-        run: cat .env
+
+      
       - name: Rename dispatch yaml file
         run: cp dispatch-test.yaml dispatch.yaml
       - name: Rename app yaml file
         run: cp app-test.yaml app.yaml
-
+      - name: Verify the deployment content 
+        run: ls -al
+      - name: List content of environment file generated
+        run: cat .env
       - name: Deploy to App Engine
         id: deploy
         uses: google-github-actions/deploy-appengine@main
