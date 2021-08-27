@@ -35,6 +35,8 @@ jobs:
           NAME: ${{ steps.secrets.outputs.NAME }}
           REGION: ${{ steps.secrets.outputs.REGION }}
       
+      - name: List content 
+        run: ls -al
       - name: List content of environment file generated
         run: cat .env
 
