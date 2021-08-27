@@ -1,0 +1,9 @@
+dispatch:
+- url: "schedulebear.uc.r.appspot.com/*"
+  service: demo
+
+- url: "demo-dot-schedulebear.uc.r.appspot.com/*"
+  service: dev
+ 
+- url: "dev-dot-schedulebear.uc.r.appspot.com/*"
+  service: demo

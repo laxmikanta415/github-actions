@@ -39,12 +39,16 @@ jobs:
         run: ls -al
       - name: List content of environment file generated
         run: cat .env
+      - name: Rename dispatch yaml file
+        run: cp dispatch-test.yaml dispatch.yaml
+      - name: Rename app yaml file
+        run: cp app-test.yaml app.yaml
 
       - name: Deploy to App Engine
         id: deploy
         uses: google-github-actions/deploy-appengine@main
         with:
-          deliverables: app.yaml ./deployment/dispatch.yaml
+          deliverables: app.yaml dispatch.yaml
           credentials: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ steps.secrets.outputs.PROJECT_ID }}
 
