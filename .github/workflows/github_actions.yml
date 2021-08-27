@@ -30,13 +30,10 @@ jobs:
       - run: npm install
 
       - name: Generate environment variables file
-        run: node logenv.js "NAME,REGION"
+        run: node ./deployment/env-file-generator.js "NAME,REGION"
         env:
           NAME: ${{ steps.secrets.outputs.NAME }}
           REGION: ${{ steps.secrets.outputs.REGION }}
-      
-      - name: List all files
-        run: ls -al
       
       - name: List content of environment file generated
         run: cat .env
@@ -45,10 +42,9 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-appengine@main
         with:
-          deliverables: app.yaml dispatch.yaml
+          deliverables: ./deployment/app.yaml ./deployment/dispatch.yaml
           credentials: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ steps.secrets.outputs.PROJECT_ID }}
-
 
       - name: Test
         run: curl "${{ steps.deploy.outputs.url }}"
