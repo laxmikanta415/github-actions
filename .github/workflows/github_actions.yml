@@ -30,7 +30,7 @@ jobs:
       - run: npm install
 
       - name: Generate environment variables file
-        run: node ./deployment/env-file-generator.js "NAME,REGION"
+        run: node ./deployment/env-file-generator.js "NAME,REGION" ""
         env:
           NAME: ${{ steps.secrets.outputs.NAME }}
           REGION: ${{ steps.secrets.outputs.REGION }}
